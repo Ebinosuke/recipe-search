@@ -21507,13 +21507,13 @@ function render() {
   root.appendChild(section('1. シェフの選択', buildChefSelect()));
   if (!selectedChef) return;
 
-  root.appendChild(section('2. 最初に取得した食材', buildFirstIngredientSelect()));
+  root.appendChild(section('2. 最初に取得した食材（ボタンで選択）', buildFirstIngredientButtons()));
   if (!firstIngredient) return;
 
   root.appendChild(section('3. ゲーム上で提示されたレシピの選択', buildRecipeSelect()));
   if (!confirmedRecipe) return;
 
-  root.appendChild(section('4. 所持食材の入力（2つ目以降）', buildIngredientInput()));
+  root.appendChild(section('4. 所持食材の入力（ボタンで追加）', buildOwnedIngredientButtons()));
   root.appendChild(section('5. レシピ比較（提示レシピ vs 他レシピ）', buildRecipeComparison()));
 }
 
@@ -21535,110 +21535,30 @@ function buildChefSelect() {
   return select;
 }
 
-function buildFirstIngredientSelect() {
-  const select = document.createElement('select');
-  select.innerHTML = '<option value="">-- 食材を選択 --</option>' + `<option value="0">0</option>
-<option value="あげ玉">あげ玉</option>
-<option value="いかすみ">いかすみ</option>
-<option value="うどん">うどん</option>
-<option value="かに">かに</option>
-<option value="かまぼこ">かまぼこ</option>
-<option value="しいたけ">しいたけ</option>
-<option value="しそ">しそ</option>
-<option value="しょうが">しょうが</option>
-<option value="じゃがいも">じゃがいも</option>
-<option value="そば">そば</option>
-<option value="たけのこ">たけのこ</option>
-<option value="たまご">たまご</option>
-<option value="たまねぎ">たまねぎ</option>
-<option value="たらばがに">たらばがに</option>
-<option value="だいこん">だいこん</option>
-<option value="とうふ">とうふ</option>
-<option value="にんじん">にんじん</option>
-<option value="にんにく">にんにく</option>
-<option value="のり">のり</option>
-<option value="ぱん粉">ぱん粉</option>
-<option value="ひき肉">ひき肉</option>
-<option value="ほうれん草">ほうれん草</option>
-<option value="まつたけ">まつたけ</option>
-<option value="アサリ">アサリ</option>
-<option value="アワビ">アワビ</option>
-<option value="イカ">イカ</option>
-<option value="イナゴ">イナゴ</option>
-<option value="イワシ">イワシ</option>
-<option value="ウニ">ウニ</option>
-<option value="エスカルゴ">エスカルゴ</option>
-<option value="エビ">エビ</option>
-<option value="オイスターソース">オイスターソース</option>
-<option value="カエル">カエル</option>
-<option value="カキ">カキ</option>
-<option value="カレー粉">カレー粉</option>
-<option value="キクラゲ">キクラゲ</option>
-<option value="キャビア">キャビア</option>
-<option value="キャベツ">キャベツ</option>
-<option value="ケチャップ">ケチャップ</option>
-<option value="コイ">コイ</option>
-<option value="コーチン">コーチン</option>
-<option value="シャケ">シャケ</option>
-<option value="スッポン">スッポン</option>
-<option value="タイ">タイ</option>
-<option value="タコ">タコ</option>
-<option value="タラ">タラ</option>
-<option value="ダック">ダック</option>
-<option value="チーズ">チーズ</option>
-<option value="トマト">トマト</option>
-<option value="トラフグ">トラフグ</option>
-<option value="トリュフ">トリュフ</option>
-<option value="ドジョウ">ドジョウ</option>
-<option value="ナス">ナス</option>
-<option value="ニラ">ニラ</option>
-<option value="ネギ">ネギ</option>
-<option value="ハム">ハム</option>
-<option value="バター">バター</option>
-<option value="パスタ">パスタ</option>
-<option value="パン">パン</option>
-<option value="ピザ生地">ピザ生地</option>
-<option value="ピーマン">ピーマン</option>
-<option value="フォアグラ">フォアグラ</option>
-<option value="フカヒレ">フカヒレ</option>
-<option value="フクロタケ">フクロタケ</option>
-<option value="ベーコン">ベーコン</option>
-<option value="ホタテ貝">ホタテ貝</option>
-<option value="マグロ">マグロ</option>
-<option value="マッシュルーム">マッシュルーム</option>
-<option value="レタス">レタス</option>
-<option value="レモン">レモン</option>
-<option value="ワイン">ワイン</option>
-<option value="ワカメ">ワカメ</option>
-<option value="中華めん">中華めん</option>
-<option value="伊勢海老">伊勢海老</option>
-<option value="包丁の舞い">包丁の舞い</option>
-<option value="味噌">味噌</option>
-<option value="唐辛子">唐辛子</option>
-<option value="大トロ">大トロ</option>
-<option value="愛">愛</option>
-<option value="折詰の折">折詰の折</option>
-<option value="春菊">春菊</option>
-<option value="松阪牛">松阪牛</option>
-<option value="油揚げ">油揚げ</option>
-<option value="点心の皮">点心の皮</option>
-<option value="烏骨鶏の卵">烏骨鶏の卵</option>
-<option value="牛乳">牛乳</option>
-<option value="牛肉">牛肉</option>
-<option value="白菜">白菜</option>
-<option value="秘伝のかくし味">秘伝のかくし味</option>
-<option value="米">米</option>
-<option value="紋甲いか">紋甲いか</option>
-<option value="計">計</option>
-<option value="豚肉">豚肉</option>
-<option value="酢">酢</option>
-<option value="金箔">金箔</option>
-<option value="餅">餅</option>
-<option value="鶏肉">鶏肉</option>
-<option value="黒豚">黒豚</option>`;
-  select.value = firstIngredient;
-  select.onchange = e => { firstIngredient = e.target.value; render(); };
-  return select;
+function buildFirstIngredientButtons() {
+  const wrap = document.createElement('div');
+  wrap.className = 'button-group';
+  wrap.innerHTML = `<button type="button" onclick="setFirstIngredient(\"0\")">0</button>\n<button type="button" onclick="setFirstIngredient(\"あげ玉\")">あげ玉</button>\n<button type="button" onclick="setFirstIngredient(\"いかすみ\")">いかすみ</button>\n<button type="button" onclick="setFirstIngredient(\"うどん\")">うどん</button>\n<button type="button" onclick="setFirstIngredient(\"かに\")">かに</button>\n<button type="button" onclick="setFirstIngredient(\"かまぼこ\")">かまぼこ</button>\n<button type="button" onclick="setFirstIngredient(\"しいたけ\")">しいたけ</button>\n<button type="button" onclick="setFirstIngredient(\"しそ\")">しそ</button>\n<button type="button" onclick="setFirstIngredient(\"しょうが\")">しょうが</button>\n<button type="button" onclick="setFirstIngredient(\"じゃがいも\")">じゃがいも</button>\n<button type="button" onclick="setFirstIngredient(\"そば\")">そば</button>\n<button type="button" onclick="setFirstIngredient(\"たけのこ\")">たけのこ</button>\n<button type="button" onclick="setFirstIngredient(\"たまご\")">たまご</button>\n<button type="button" onclick="setFirstIngredient(\"たまねぎ\")">たまねぎ</button>\n<button type="button" onclick="setFirstIngredient(\"たらばがに\")">たらばがに</button>\n<button type="button" onclick="setFirstIngredient(\"だいこん\")">だいこん</button>\n<button type="button" onclick="setFirstIngredient(\"とうふ\")">とうふ</button>\n<button type="button" onclick="setFirstIngredient(\"にんじん\")">にんじん</button>\n<button type="button" onclick="setFirstIngredient(\"にんにく\")">にんにく</button>\n<button type="button" onclick="setFirstIngredient(\"のり\")">のり</button>\n<button type="button" onclick="setFirstIngredient(\"ぱん粉\")">ぱん粉</button>\n<button type="button" onclick="setFirstIngredient(\"ひき肉\")">ひき肉</button>\n<button type="button" onclick="setFirstIngredient(\"ほうれん草\")">ほうれん草</button>\n<button type="button" onclick="setFirstIngredient(\"まつたけ\")">まつたけ</button>\n<button type="button" onclick="setFirstIngredient(\"アサリ\")">アサリ</button>\n<button type="button" onclick="setFirstIngredient(\"アワビ\")">アワビ</button>\n<button type="button" onclick="setFirstIngredient(\"イカ\")">イカ</button>\n<button type="button" onclick="setFirstIngredient(\"イナゴ\")">イナゴ</button>\n<button type="button" onclick="setFirstIngredient(\"イワシ\")">イワシ</button>\n<button type="button" onclick="setFirstIngredient(\"ウニ\")">ウニ</button>\n<button type="button" onclick="setFirstIngredient(\"エスカルゴ\")">エスカルゴ</button>\n<button type="button" onclick="setFirstIngredient(\"エビ\")">エビ</button>\n<button type="button" onclick="setFirstIngredient(\"オイスターソース\")">オイスターソース</button>\n<button type="button" onclick="setFirstIngredient(\"カエル\")">カエル</button>\n<button type="button" onclick="setFirstIngredient(\"カキ\")">カキ</button>\n<button type="button" onclick="setFirstIngredient(\"カレー粉\")">カレー粉</button>\n<button type="button" onclick="setFirstIngredient(\"キクラゲ\")">キクラゲ</button>\n<button type="button" onclick="setFirstIngredient(\"キャビア\")">キャビア</button>\n<button type="button" onclick="setFirstIngredient(\"キャベツ\")">キャベツ</button>\n<button type="button" onclick="setFirstIngredient(\"ケチャップ\")">ケチャップ</button>\n<button type="button" onclick="setFirstIngredient(\"コイ\")">コイ</button>\n<button type="button" onclick="setFirstIngredient(\"コーチン\")">コーチン</button>\n<button type="button" onclick="setFirstIngredient(\"シャケ\")">シャケ</button>\n<button type="button" onclick="setFirstIngredient(\"スッポン\")">スッポン</button>\n<button type="button" onclick="setFirstIngredient(\"タイ\")">タイ</button>\n<button type="button" onclick="setFirstIngredient(\"タコ\")">タコ</button>\n<button type="button" onclick="setFirstIngredient(\"タラ\")">タラ</button>\n<button type="button" onclick="setFirstIngredient(\"ダック\")">ダック</button>\n<button type="button" onclick="setFirstIngredient(\"チーズ\")">チーズ</button>\n<button type="button" onclick="setFirstIngredient(\"トマト\")">トマト</button>\n<button type="button" onclick="setFirstIngredient(\"トラフグ\")">トラフグ</button>\n<button type="button" onclick="setFirstIngredient(\"トリュフ\")">トリュフ</button>\n<button type="button" onclick="setFirstIngredient(\"ドジョウ\")">ドジョウ</button>\n<button type="button" onclick="setFirstIngredient(\"ナス\")">ナス</button>\n<button type="button" onclick="setFirstIngredient(\"ニラ\")">ニラ</button>\n<button type="button" onclick="setFirstIngredient(\"ネギ\")">ネギ</button>\n<button type="button" onclick="setFirstIngredient(\"ハム\")">ハム</button>\n<button type="button" onclick="setFirstIngredient(\"バター\")">バター</button>\n<button type="button" onclick="setFirstIngredient(\"パスタ\")">パスタ</button>\n<button type="button" onclick="setFirstIngredient(\"パン\")">パン</button>\n<button type="button" onclick="setFirstIngredient(\"ピザ生地\")">ピザ生地</button>\n<button type="button" onclick="setFirstIngredient(\"ピーマン\")">ピーマン</button>\n<button type="button" onclick="setFirstIngredient(\"フォアグラ\")">フォアグラ</button>\n<button type="button" onclick="setFirstIngredient(\"フカヒレ\")">フカヒレ</button>\n<button type="button" onclick="setFirstIngredient(\"フクロタケ\")">フクロタケ</button>\n<button type="button" onclick="setFirstIngredient(\"ベーコン\")">ベーコン</button>\n<button type="button" onclick="setFirstIngredient(\"ホタテ貝\")">ホタテ貝</button>\n<button type="button" onclick="setFirstIngredient(\"マグロ\")">マグロ</button>\n<button type="button" onclick="setFirstIngredient(\"マッシュルーム\")">マッシュルーム</button>\n<button type="button" onclick="setFirstIngredient(\"レタス\")">レタス</button>\n<button type="button" onclick="setFirstIngredient(\"レモン\")">レモン</button>\n<button type="button" onclick="setFirstIngredient(\"ワイン\")">ワイン</button>\n<button type="button" onclick="setFirstIngredient(\"ワカメ\")">ワカメ</button>\n<button type="button" onclick="setFirstIngredient(\"中華めん\")">中華めん</button>\n<button type="button" onclick="setFirstIngredient(\"伊勢海老\")">伊勢海老</button>\n<button type="button" onclick="setFirstIngredient(\"包丁の舞い\")">包丁の舞い</button>\n<button type="button" onclick="setFirstIngredient(\"味噌\")">味噌</button>\n<button type="button" onclick="setFirstIngredient(\"唐辛子\")">唐辛子</button>\n<button type="button" onclick="setFirstIngredient(\"大トロ\")">大トロ</button>\n<button type="button" onclick="setFirstIngredient(\"愛\")">愛</button>\n<button type="button" onclick="setFirstIngredient(\"折詰の折\")">折詰の折</button>\n<button type="button" onclick="setFirstIngredient(\"春菊\")">春菊</button>\n<button type="button" onclick="setFirstIngredient(\"松阪牛\")">松阪牛</button>\n<button type="button" onclick="setFirstIngredient(\"油揚げ\")">油揚げ</button>\n<button type="button" onclick="setFirstIngredient(\"点心の皮\")">点心の皮</button>\n<button type="button" onclick="setFirstIngredient(\"烏骨鶏の卵\")">烏骨鶏の卵</button>\n<button type="button" onclick="setFirstIngredient(\"牛乳\")">牛乳</button>\n<button type="button" onclick="setFirstIngredient(\"牛肉\")">牛肉</button>\n<button type="button" onclick="setFirstIngredient(\"白菜\")">白菜</button>\n<button type="button" onclick="setFirstIngredient(\"秘伝のかくし味\")">秘伝のかくし味</button>\n<button type="button" onclick="setFirstIngredient(\"米\")">米</button>\n<button type="button" onclick="setFirstIngredient(\"紋甲いか\")">紋甲いか</button>\n<button type="button" onclick="setFirstIngredient(\"計\")">計</button>\n<button type="button" onclick="setFirstIngredient(\"豚肉\")">豚肉</button>\n<button type="button" onclick="setFirstIngredient(\"酢\")">酢</button>\n<button type="button" onclick="setFirstIngredient(\"金箔\")">金箔</button>\n<button type="button" onclick="setFirstIngredient(\"餅\")">餅</button>\n<button type="button" onclick="setFirstIngredient(\"鶏肉\")">鶏肉</button>\n<button type="button" onclick="setFirstIngredient(\"黒豚\")">黒豚</button>`;
+  const display = document.createElement('div');
+  display.className = 'highlight';
+  display.textContent = '選択中の食材：' + (firstIngredient || 'なし');
+  const container = document.createElement('div');
+  container.appendChild(wrap);
+  container.appendChild(display);
+  return container;
+}
+
+function buildOwnedIngredientButtons() {
+  const wrap = document.createElement('div');
+  wrap.className = 'button-group';
+  wrap.innerHTML = `<button type="button" onclick="addIngredient(\"0\")">0</button>\n<button type="button" onclick="addIngredient(\"あげ玉\")">あげ玉</button>\n<button type="button" onclick="addIngredient(\"いかすみ\")">いかすみ</button>\n<button type="button" onclick="addIngredient(\"うどん\")">うどん</button>\n<button type="button" onclick="addIngredient(\"かに\")">かに</button>\n<button type="button" onclick="addIngredient(\"かまぼこ\")">かまぼこ</button>\n<button type="button" onclick="addIngredient(\"しいたけ\")">しいたけ</button>\n<button type="button" onclick="addIngredient(\"しそ\")">しそ</button>\n<button type="button" onclick="addIngredient(\"しょうが\")">しょうが</button>\n<button type="button" onclick="addIngredient(\"じゃがいも\")">じゃがいも</button>\n<button type="button" onclick="addIngredient(\"そば\")">そば</button>\n<button type="button" onclick="addIngredient(\"たけのこ\")">たけのこ</button>\n<button type="button" onclick="addIngredient(\"たまご\")">たまご</button>\n<button type="button" onclick="addIngredient(\"たまねぎ\")">たまねぎ</button>\n<button type="button" onclick="addIngredient(\"たらばがに\")">たらばがに</button>\n<button type="button" onclick="addIngredient(\"だいこん\")">だいこん</button>\n<button type="button" onclick="addIngredient(\"とうふ\")">とうふ</button>\n<button type="button" onclick="addIngredient(\"にんじん\")">にんじん</button>\n<button type="button" onclick="addIngredient(\"にんにく\")">にんにく</button>\n<button type="button" onclick="addIngredient(\"のり\")">のり</button>\n<button type="button" onclick="addIngredient(\"ぱん粉\")">ぱん粉</button>\n<button type="button" onclick="addIngredient(\"ひき肉\")">ひき肉</button>\n<button type="button" onclick="addIngredient(\"ほうれん草\")">ほうれん草</button>\n<button type="button" onclick="addIngredient(\"まつたけ\")">まつたけ</button>\n<button type="button" onclick="addIngredient(\"アサリ\")">アサリ</button>\n<button type="button" onclick="addIngredient(\"アワビ\")">アワビ</button>\n<button type="button" onclick="addIngredient(\"イカ\")">イカ</button>\n<button type="button" onclick="addIngredient(\"イナゴ\")">イナゴ</button>\n<button type="button" onclick="addIngredient(\"イワシ\")">イワシ</button>\n<button type="button" onclick="addIngredient(\"ウニ\")">ウニ</button>\n<button type="button" onclick="addIngredient(\"エスカルゴ\")">エスカルゴ</button>\n<button type="button" onclick="addIngredient(\"エビ\")">エビ</button>\n<button type="button" onclick="addIngredient(\"オイスターソース\")">オイスターソース</button>\n<button type="button" onclick="addIngredient(\"カエル\")">カエル</button>\n<button type="button" onclick="addIngredient(\"カキ\")">カキ</button>\n<button type="button" onclick="addIngredient(\"カレー粉\")">カレー粉</button>\n<button type="button" onclick="addIngredient(\"キクラゲ\")">キクラゲ</button>\n<button type="button" onclick="addIngredient(\"キャビア\")">キャビア</button>\n<button type="button" onclick="addIngredient(\"キャベツ\")">キャベツ</button>\n<button type="button" onclick="addIngredient(\"ケチャップ\")">ケチャップ</button>\n<button type="button" onclick="addIngredient(\"コイ\")">コイ</button>\n<button type="button" onclick="addIngredient(\"コーチン\")">コーチン</button>\n<button type="button" onclick="addIngredient(\"シャケ\")">シャケ</button>\n<button type="button" onclick="addIngredient(\"スッポン\")">スッポン</button>\n<button type="button" onclick="addIngredient(\"タイ\")">タイ</button>\n<button type="button" onclick="addIngredient(\"タコ\")">タコ</button>\n<button type="button" onclick="addIngredient(\"タラ\")">タラ</button>\n<button type="button" onclick="addIngredient(\"ダック\")">ダック</button>\n<button type="button" onclick="addIngredient(\"チーズ\")">チーズ</button>\n<button type="button" onclick="addIngredient(\"トマト\")">トマト</button>\n<button type="button" onclick="addIngredient(\"トラフグ\")">トラフグ</button>\n<button type="button" onclick="addIngredient(\"トリュフ\")">トリュフ</button>\n<button type="button" onclick="addIngredient(\"ドジョウ\")">ドジョウ</button>\n<button type="button" onclick="addIngredient(\"ナス\")">ナス</button>\n<button type="button" onclick="addIngredient(\"ニラ\")">ニラ</button>\n<button type="button" onclick="addIngredient(\"ネギ\")">ネギ</button>\n<button type="button" onclick="addIngredient(\"ハム\")">ハム</button>\n<button type="button" onclick="addIngredient(\"バター\")">バター</button>\n<button type="button" onclick="addIngredient(\"パスタ\")">パスタ</button>\n<button type="button" onclick="addIngredient(\"パン\")">パン</button>\n<button type="button" onclick="addIngredient(\"ピザ生地\")">ピザ生地</button>\n<button type="button" onclick="addIngredient(\"ピーマン\")">ピーマン</button>\n<button type="button" onclick="addIngredient(\"フォアグラ\")">フォアグラ</button>\n<button type="button" onclick="addIngredient(\"フカヒレ\")">フカヒレ</button>\n<button type="button" onclick="addIngredient(\"フクロタケ\")">フクロタケ</button>\n<button type="button" onclick="addIngredient(\"ベーコン\")">ベーコン</button>\n<button type="button" onclick="addIngredient(\"ホタテ貝\")">ホタテ貝</button>\n<button type="button" onclick="addIngredient(\"マグロ\")">マグロ</button>\n<button type="button" onclick="addIngredient(\"マッシュルーム\")">マッシュルーム</button>\n<button type="button" onclick="addIngredient(\"レタス\")">レタス</button>\n<button type="button" onclick="addIngredient(\"レモン\")">レモン</button>\n<button type="button" onclick="addIngredient(\"ワイン\")">ワイン</button>\n<button type="button" onclick="addIngredient(\"ワカメ\")">ワカメ</button>\n<button type="button" onclick="addIngredient(\"中華めん\")">中華めん</button>\n<button type="button" onclick="addIngredient(\"伊勢海老\")">伊勢海老</button>\n<button type="button" onclick="addIngredient(\"包丁の舞い\")">包丁の舞い</button>\n<button type="button" onclick="addIngredient(\"味噌\")">味噌</button>\n<button type="button" onclick="addIngredient(\"唐辛子\")">唐辛子</button>\n<button type="button" onclick="addIngredient(\"大トロ\")">大トロ</button>\n<button type="button" onclick="addIngredient(\"愛\")">愛</button>\n<button type="button" onclick="addIngredient(\"折詰の折\")">折詰の折</button>\n<button type="button" onclick="addIngredient(\"春菊\")">春菊</button>\n<button type="button" onclick="addIngredient(\"松阪牛\")">松阪牛</button>\n<button type="button" onclick="addIngredient(\"油揚げ\")">油揚げ</button>\n<button type="button" onclick="addIngredient(\"点心の皮\")">点心の皮</button>\n<button type="button" onclick="addIngredient(\"烏骨鶏の卵\")">烏骨鶏の卵</button>\n<button type="button" onclick="addIngredient(\"牛乳\")">牛乳</button>\n<button type="button" onclick="addIngredient(\"牛肉\")">牛肉</button>\n<button type="button" onclick="addIngredient(\"白菜\")">白菜</button>\n<button type="button" onclick="addIngredient(\"秘伝のかくし味\")">秘伝のかくし味</button>\n<button type="button" onclick="addIngredient(\"米\")">米</button>\n<button type="button" onclick="addIngredient(\"紋甲いか\")">紋甲いか</button>\n<button type="button" onclick="addIngredient(\"計\")">計</button>\n<button type="button" onclick="addIngredient(\"豚肉\")">豚肉</button>\n<button type="button" onclick="addIngredient(\"酢\")">酢</button>\n<button type="button" onclick="addIngredient(\"金箔\")">金箔</button>\n<button type="button" onclick="addIngredient(\"餅\")">餅</button>\n<button type="button" onclick="addIngredient(\"鶏肉\")">鶏肉</button>\n<button type="button" onclick="addIngredient(\"黒豚\")">黒豚</button>`;
+  const display = document.createElement('div');
+  display.className = 'highlight';
+  display.textContent = '現在の所持食材：' + ownedIngredients.join(', ');
+  const container = document.createElement('div');
+  container.appendChild(wrap);
+  container.appendChild(display);
+  return container;
 }
 
 function buildRecipeSelect() {
@@ -21650,25 +21570,6 @@ function buildRecipeSelect() {
     candidates.map(r => `<option value="${r.name}" ${r.name === confirmedRecipe ? 'selected' : ''}>${r.name}</option>`).join('');
   select.onchange = e => { confirmedRecipe = e.target.value; render(); };
   return select;
-}
-
-function buildIngredientInput() {
-  const wrapper = document.createElement('div');
-  const input = document.createElement('input');
-  input.placeholder = '食材名を入力して Enter';
-  input.onkeydown = e => {
-    if (e.key === 'Enter' && e.target.value.trim()) {
-      ownedIngredients.push(e.target.value.trim());
-      e.target.value = '';
-      render();
-    }
-  };
-  const display = document.createElement('div');
-  display.className = 'highlight';
-  display.textContent = '現在の所持食材：' + ownedIngredients.join(', ');
-  wrapper.appendChild(input);
-  wrapper.appendChild(display);
-  return wrapper;
 }
 
 function buildRecipeComparison() {
@@ -21706,6 +21607,16 @@ function buildRecipeComparison() {
   }
 
   return container;
+}
+
+function setFirstIngredient(ing) {
+  firstIngredient = ing;
+  render();
+}
+
+function addIngredient(ing) {
+  ownedIngredients.push(ing);
+  render();
 }
 
 render();
