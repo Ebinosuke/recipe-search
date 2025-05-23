@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>レシピ検索システム</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; display: flex; gap: 40px; }
+    .ingredients { max-width: 300px; }
+    .recipes { flex: 1; }
+    .card { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+    label { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+  </style>
+</head>
+<body>
+  <div class="ingredients">
+    <h2>所持食材を選択：</h2>
+    <div id="ingredient-list"></div>
+  </div>
+  <div class="recipes">
+    <h2>作れるレシピ：</h2>
+    <div id="recipe-list"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
